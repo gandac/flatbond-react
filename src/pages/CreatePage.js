@@ -8,16 +8,7 @@ import classes from './page.scss';
 
 class CreatePage extends React.Component{
 
-    constructor(props) { 
-        super(props);
-        this.initialState = {
-            calculateRentPeriod : false,
-        }
-        this.state = this.initialState;
-    }
-    
-    
-
+   
     componentDidMount(){
         //The initial call to when we ger the config 
         // this.props.resetForm();
@@ -25,12 +16,17 @@ class CreatePage extends React.Component{
     }
 
     resetPageState = () => {
-        this.setState(this.initialState);
+        
         //this.props.resetForm();
     }
 
-    handeRadioValue = (e, { value }) => this.setState({ ...this.state, calculateRentPeriod: value })
+    handeRadioValue = (e, { value }) => this.props.updatePeriod(value)
 
+    handlePriceSlide = (value) =>  {
+        
+        console.log('value' , value)
+    };
+    
     render(){
         return (
             <Container className={classes.Page}>
@@ -41,16 +37,18 @@ class CreatePage extends React.Component{
                             <p>Find how much your membership costs, and apply to set your next flat bond</p>
                             <Divider />
                             <ChooseRentPeriod
-                            value={this.state.calculateRentPeriod}
+                            value={this.props.rentPeriod}
                             handleValue={this.handeRadioValue}  />
                         </Segment>
                     </Grid.Column>
                     <Grid.Column>
                     {
-                    this.state.calculateRentPeriod ? 
+                    this.props.rentPeriod ? 
                         <Segment raised>
                             <CreateBondForm 
-                               />
+                              selectedPeriod={this.props.rentPeriod}
+                            //   value={this.props.value}
+                              onChange={this.handlePriceSlide}/>
                         </Segment>
                     : null
                     }
@@ -63,14 +61,14 @@ class CreatePage extends React.Component{
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
-
+        rentPeriod : state.flatBond.showRentInPeriod
     }
 }
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-
+        updatePeriod : (val) => dispatch(actions.updateFlatBondPeriod(val))
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CreatePage);

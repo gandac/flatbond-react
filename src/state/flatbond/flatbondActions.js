@@ -1,11 +1,8 @@
 import * as actionTypes from '../actionTypes';
 
-const initalState = {
-    config : false
+export const updateFlatBondPeriod = (val) => {
+    return {
+        type: actionTypes.UPDATE_FLATBOND_PERIOD,
+        period: val
+    }
 }
-
-const reducer = (state = initalState ,action) => {
-    return state;
-}
-
-export default reducer;

@@ -20,7 +20,7 @@ export default (props) => {
                 <Radio
                 label='Monthly'
                 name='choosePeriodRadio'
-                value='monthly'g
+                value='monthly'
                 checked={props.value === 'monthly'}
                 onChange={props.handleValue}
                 />

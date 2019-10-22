@@ -1,21 +1,41 @@
 import React from 'react';
+import {Table} from 'semantic-ui-react';
 import {Slider} from 'react-semantic-ui-range';
+import {sliderLimits} from 'state/constants';
 import classes from './CreateBondForm.scss';
 
+
 export default (props) => {
+    const min = sliderLimits[props.selectedPeriod].min;
+    const max = sliderLimits[props.selectedPeriod].max;
     const settings = {
-        start: 50,
-        min: 20,
-        max: 100,
+        start: Math.floor(max / 2),
+        min: min,
+        max: max,
         step: 1,
-        onChange: props.onChange
+        color:"blue",
+        onChange: value => props.onChange(value)
         }
 
     return (
         <div className={classes.CreateBondForm}>
-            <h1>Choose the amount</h1>
-            <Slider value={props.value} color="red" settings={settings} />
-
+            <h1>Choose the target for your own rent</h1>
+            
+            <Table basic='very'>
+                <Table.Body>
+                <Table.Row>
+                    <Table.Cell>
+                       
+                    </Table.Cell>
+                    <Table.Cell>
+                        <Slider value={props.value} color="blue" settings={settings} />
+                    </Table.Cell>
+                    <Table.Cell>
+                        
+                    </Table.Cell>
+                </Table.Row>
+                </Table.Body>
+            </Table>
         </div>
     )
 }
