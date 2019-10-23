@@ -2,12 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Segment,Divider,Container,Grid,Button} from 'semantic-ui-react';
 import Preloader from 'components/ui/Preloader';
-import ChooseRentPeriod from 'components/Form/ChoosePeriod';
 import CreateBondForm from 'components/Form/CreateBondForm';
+import SelectPeriod from 'components/Form/SelectPeriod';
 import * as actions from 'state/flatbond/flatbondActions';
 import {getConfig} from 'state/config/configActions';
 import {sliderLimits} from 'state/constants';
-import GridContainer from 'components/ui/GridContainer';
 import './page.scss';
 
 // The Create [ main ] Page view, implementing two react lifecycle methods
@@ -19,6 +18,7 @@ class CreatePage extends React.Component{
             this.props.history.push('/details');
         }
     }
+    
     componentDidMount(){
         this.resetPageState();
     }
@@ -60,7 +60,7 @@ class CreatePage extends React.Component{
         }
 
         return (
-            this.props.loading ?  <GridContainer> <Preloader /> </GridContainer>:
+            this.props.loading ?  <Container text> <Preloader /> </Container>:
             <Container text className="Page">
                 <Grid>
                     <Grid.Row>
@@ -69,7 +69,7 @@ class CreatePage extends React.Component{
                                 <h1 className={"text-center"}>Get your perfect Flat Bond</h1>
                                 <p>Find how much your membership costs, and apply to set your next flat bond</p>
                                 <Divider />
-                                <ChooseRentPeriod
+                                <SelectPeriod
                                 value={rentPeriod}
                                 handleValue={this.handeRadioValue}  />
                             </Segment>
