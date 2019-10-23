@@ -1,6 +1,12 @@
 # F L A T B O N D -- D E M O P R O J E C T 
 
-For Challenge to Create a a minimal ui that is connecting to a demo server. This javascript project uses React framework for providing the view skeleton,Redux for storing data, Webpack for building / creating hot dev server
+I have build this project for a challenge in creating a minimal ui that is doing two to a demo server.
+
+In the UI the user can pick his desired rent amount and following some logic, he gets a price offer.
+
+You can see the demo of the project here [http://flatbond-5a576.web.app](http://flatbond-5a576.web.app) 
+
+This javascript project uses React framework for providing the view skeleton,Redux for storing data, Webpack for building / creating hot dev server
 
 Source files are in the `src/` folder and built files are in `public/` folder
 
