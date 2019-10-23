@@ -1,8 +1,8 @@
 import * as actionTypes from '../actionTypes';
 
 const initialState = {
-    is_fixed_fee: null,
-    fixed_fee_amount : null,
+    isFixedFee: null,
+    fixedFeeAmount : null,
     loading: true,
     error: false
 }
@@ -17,8 +17,8 @@ const reducer = (state = initialState ,action) => {
         case actionTypes.GET_CONFIG_SUCCESS:
             return {
                 ...state,
-                is_fixed_fee: false,
-                fixed_fee_amount : action.data.fixed_membership_fee_amount,
+                isFixedFee: action.data.fixed_membership_fee,
+                fixedFeeAmount : action.data.fixed_membership_fee_amount,
                 loading: false
             }
         case actionTypes.GET_CONFIG_ERROR:

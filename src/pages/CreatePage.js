@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Segment,Divider,Container,Grid} from 'semantic-ui-react';
+import {Segment,Divider,Container,Grid,Button} from 'semantic-ui-react';
+import Preloader from 'components/ui/Preloader';
 import ChooseRentPeriod from 'components/Form/ChoosePeriod';
 import CreateBondForm from 'components/Form/CreateBondForm';
 import * as actions from 'state/flatbond/flatbondActions';
@@ -32,15 +33,23 @@ class CreatePage extends React.Component{
 
     handlePriceSlide = (value) =>  this.props.updateRentAmount(value)
     
+    postcodeChange = (e) => { 
+        const val = e.target.value;
+        this.props.updatePostcode(val);
+    }
+
     render(){
+
         const sliderMin = this.props.rentPeriod ? sliderLimits[this.props.rentPeriod].min : 0;
         const sliderMax = this.props.rentPeriod ? sliderLimits[this.props.rentPeriod].max : 0;
+
         return (
+            this.props.loading ?  <Preloader /> :
             <Container className="Page">
                 <Grid columns={2}>
                     <Grid.Row>
                         <Grid.Column >
-                            <Segment raised>
+                            <Segment>
                                 <h1 className={"text-center"}>Get your perfect Flat Bond</h1>
                                 <p>Find how much your membership costs, and apply to set your next flat bond</p>
                                 <Divider />
@@ -53,7 +62,7 @@ class CreatePage extends React.Component{
                     { this.props.rentPeriod ? 
                     <Grid.Row>
                         <Grid.Column>
-                            <Segment raised>
+                            <Segment>
                                 <CreateBondForm 
                                 membership = {this.props.membership}
                                 selectedPeriod={this.props.rentPeriod}
@@ -61,11 +70,23 @@ class CreatePage extends React.Component{
                                 onChange={this.handlePriceSlide}
                                 sliderMin ={sliderMin}
                                 sliderMax ={sliderMax}
+                                postcodeValue = {this.props.postcode}
+                                postcodeChange = {this.postcodeChange}
+                                validPostcode = {this.props.isValidPostcode}
                                 />
                             </Segment>
                         </Grid.Column>
                     </Grid.Row>
                     : null }
+                    
+                    <Grid.Row>
+                        <Grid.Column className="right aligned">
+                            { this.props.isValidPostcode ? 
+                            <Button positive>Send</Button>
+                            : this.props.rentPeriod ? <p>Please fill in a valid Postcode above</p> : null }
+                        </Grid.Column>
+                    </Grid.Row>
+             
                    
                 </Grid>
                
@@ -79,8 +100,11 @@ const mapStateToProps = state => {
     return {
         rentPeriod : state.flatBond.showRentInPeriod,
         rentAmount : state.flatBond.rentAmountInPeriod,
+        isValidPostcode : state.flatBond.validPostcode,
+        postcode : state.flatBond.postcode,
+        loading: state.config.loading,
         membership : {
-            type: state.flatBond.is_fixed_fee ? "fixed" : "flexible",
+            type: state.config.isFixedFee ? "fixed" : "flexible",
             amount: state.flatBond.finalMembershipFee
         }
     }
@@ -89,8 +113,10 @@ const mapDispatchToProps = dispatch => {
     return {
         updatePeriod       : (val) => dispatch(actions.updateFlatBondPeriod(val)),
         updateRentAmount   : (val) => dispatch(actions.processAmount(val)),
+        updatePostcode     : (val) => dispatch(actions.applyAndValidatePostcode(val)),
         resetForm          : () => dispatch(actions.resetFlatBond()),
         getConfig          : () => dispatch(getConfig()),
+
     }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(CreatePage);

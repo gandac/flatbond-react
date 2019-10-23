@@ -12,8 +12,8 @@ export const calculateMembershipFee = (amount , state) => {
         return false
     }
 
-    if( state.config.is_fixed_fee){
-        return state.config.fixed_fee_amount
+    if( state.config.isFixedFee){
+        return state.config.fixedFeeAmount;
     }
     //First we get here how much days are in the selected period
     const daysInPeriod = CONST.daysIsPeriod[state.flatBond.showRentInPeriod];
@@ -33,8 +33,6 @@ export const calculateMembershipFee = (amount , state) => {
     return CONST.applyVat(flexibleMembershipFee);
 }
 
-//implement all the types to store the info associated with a flatbond.
-
 export const processAmount = (val) =>{
     return (dispatch , getState) => {
         const state = getState();
@@ -44,10 +42,45 @@ export const processAmount = (val) =>{
     }
 }
 
+export const validatePostcode = (val) =>{
+    let postcode = val.replace(/\s/g, "");
+    const regex = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
+    return regex.test(postcode);
+}
+
+//Below we functions just to store in redux all the types info associated with a flatbond.
+
 export const updateFlatBondPeriod = (val) => {
     return {
         type: actionTypes.UPDATE_FLATBOND_PERIOD,
         period: val
+    }
+}
+
+export const applyAndValidatePostcode= (val) => {
+    return dispatch => {
+
+        if ( validatePostcode(val)){
+            dispatch(setPostcodeValid(true));
+        }else{
+            dispatch(setPostcodeValid(false));
+        }
+
+        dispatch(updatePostcode(val));
+    }
+}
+
+export const updatePostcode = (val) => {
+    return {
+        type: actionTypes.UPDATE_FLATBOND_POSTCODE,
+        postcode: val
+    }
+}
+
+export const setPostcodeValid = (isValid) =>{
+    return {
+        type: actionTypes.IS_POSTCODE_VALID,
+        isValid : isValid
     }
 }
 

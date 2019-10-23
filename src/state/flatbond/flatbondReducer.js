@@ -4,7 +4,8 @@ const initialState = {
     showRentInPeriod: false,
     rentAmountInPeriod : false,
     finalMembershipFee: false,
-    flatPostCode : false,
+    postcode : "",
+    validPostcode: false,
     bondSubmit : false 
 }
 
@@ -28,7 +29,12 @@ const reducer = (state = initialState ,action) => {
         case actionTypes.UPDATE_FLATBOND_POSTCODE:
             return {
                 ...state,
-                flatPostCode: action.postcode,
+                postcode: action.postcode,
+            }
+        case actionTypes.IS_POSTCODE_VALID:
+            return {
+                ...state,
+                validPostcode : action.isValid,
             }
         case actionTypes.RESET_FLATBOND:
             return initialState
