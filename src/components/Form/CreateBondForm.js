@@ -1,41 +1,36 @@
 import React from 'react';
-import {Table} from 'semantic-ui-react';
-import {Slider} from 'react-semantic-ui-range';
-import {sliderLimits} from 'state/constants';
-import classes from './CreateBondForm.scss';
+import {Input,Grid,Divider} from 'semantic-ui-react';
+import InputRange from 'react-input-range';
 
+import {CURRENCY} from 'state/constants';
+import './CreateBondForm.scss';
 
 export default (props) => {
-    const min = sliderLimits[props.selectedPeriod].min;
-    const max = sliderLimits[props.selectedPeriod].max;
-    const settings = {
-        start: Math.floor(max / 2),
-        min: min,
-        max: max,
-        step: 1,
-        color:"blue",
-        onChange: value => props.onChange(value)
-        }
-
+    
     return (
-        <div className={classes.CreateBondForm}>
-            <h1>Choose the target for your own rent</h1>
-            
-            <Table basic='very'>
-                <Table.Body>
-                <Table.Row>
-                    <Table.Cell>
-                       
-                    </Table.Cell>
-                    <Table.Cell>
-                        <Slider value={props.value} color="blue" settings={settings} />
-                    </Table.Cell>
-                    <Table.Cell>
-                        
-                    </Table.Cell>
-                </Table.Row>
-                </Table.Body>
-            </Table>
+        <div className={"CreateBondForm"}>
+            <h1>Target the ideal home</h1>
+            <p>Slide to find your desired {props.selectedPeriod} price and select the ideal area</p>
+            <Grid >
+                <Grid.Row> 
+                    <Grid.Column width={13}>
+                    <InputRange
+                    minValue={props.sliderMin}
+                    maxValue={props.sliderMax}
+                    value={props.amount}
+                    onChange={value => props.onChange(value)}
+                     />
+                    </Grid.Column>  
+                    <Grid.Column width={3}>
+                        {CURRENCY}{props.amount}
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+            <h3>Enter postcode to your next FlatBond</h3>
+            <Input placeholder="N22 7XQ" type="text" maxLength="8"/>
+            <Divider />
+            <h3 className="thin">You are entitled with a <strong>{props.membership.type}</strong> membership <br/> and will cost you exactly: {CURRENCY}{props.membership.amount} </h3>
+            <p>Please send this order to lock it, and assure you will get this price exclusively.</p>
         </div>
     )
 }

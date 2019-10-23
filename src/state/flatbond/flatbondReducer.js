@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
 
-const initalState = {
+const initialState = {
     showRentInPeriod: false,
     rentAmountInPeriod : false,
     finalMembershipFee: false,
@@ -8,28 +8,30 @@ const initalState = {
     bondSubmit : false 
 }
 
-const reducer = (state = initalState ,action) => {
+const reducer = (state = initialState ,action) => {
     switch(action.type){
         case actionTypes.UPDATE_FLATBOND_PERIOD:
             return {
                 ...state,
                 showRentInPeriod: action.period,
             }
-        case actionTypes.UPDATE_FLATBOND_VALUE:
+        case actionTypes.UPDATE_FLATBOND_AMOUNT:
             return {
                 ...state,
-                rentAmountInPeriod: action.value,
+                rentAmountInPeriod: action.amount,
             }
-        case actionTypes.CALCULATE_MEMBERSHIP_FEE:
+        case actionTypes.SET_MEMBERSHIP_FEE:
             return {
                 ...state,
-                finalMembershipFee: action.fee_amount,
+                finalMembershipFee: action.amount,
             }
         case actionTypes.UPDATE_FLATBOND_POSTCODE:
             return {
                 ...state,
                 flatPostCode: action.postcode,
             }
+        case actionTypes.RESET_FLATBOND:
+            return initialState
         default:
             return state;
     }

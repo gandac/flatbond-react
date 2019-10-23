@@ -1,11 +1,10 @@
 import React from 'react';
-import {Form,Radio} from 'semantic-ui-react';
-import classes from './ChoosePeriod.scss';
+import {Radio} from 'semantic-ui-react';
+import './ChoosePeriod.scss';
 
 export default (props) => {
-    console.log('classes',classes);
     return(
-    <div className={classes.ChoosePeriod}>
+    <div className={"ChoosePeriod"}>
         <h3>How do you calcualte your rent?</h3>
             <span className="radioButtonWrapper">
                 <Radio
