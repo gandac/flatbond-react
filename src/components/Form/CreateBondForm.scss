@@ -1,6 +1,6 @@
 .CreateBondForm{
     .maxLabel , .minLabel{
-        display:none
+        // display:none
     }
     .input-range__slider {
         appearance: none;
@@ -77,13 +77,19 @@
         right: 0;
         top: 50%; }
       
-      .input-range__track--active {
+    .input-range__track--active {
         background: #3f51b5; }
       
-      .input-range {
+    .input-range {
         height: 1rem;
         position: relative;
-        width: 100%; }
+        width: 100%; 
+    }
       
+    .highlight-text{
+        display:inline-block;
+        font-weight: 600;
+        color: #6a88ff;
+    }
       /*# sourceMappingURL=index.css.map */
 }

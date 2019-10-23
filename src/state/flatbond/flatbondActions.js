@@ -1,6 +1,6 @@
 import * as actionTypes from '../actionTypes';
 import * as CONST from '../constants';
-
+import apiCall from 'utils/api';
 
 // Business logic for the membership Fee
 // This information will be used just as a reference. 
@@ -33,6 +33,37 @@ export const calculateMembershipFee = (amount , state) => {
     return CONST.applyVat(flexibleMembershipFee);
 }
 
+// CreateFlatBond responsible to make the POST API Call , and change the page if it was successfull.
+// Doesn't need any paramter as it will get the validated data from the Redux state
+export const createFlatBond = () => {
+    return (dispatch,getState) => {
+
+        const state = getState();
+
+        //Starting Request
+        dispatch(createFlatBondStart());
+
+        //Here we can see the flaw, as we sent the rent_input but we don't send the period in which we calculate the rent_input
+        const formData = {
+            rent_input : state.flatBond.rentAmountInPeriod,
+            postcode : state.flatBond.postcode
+        }
+
+        apiCall.post( '/production/flatbond' , formData )
+            .then( response => {
+                //We need to make sure that the server will respond with status:created on 200 [ as promised ]
+                if(response.data && response.data.status){
+                    dispatch(createFlatBondSuccess())
+                }
+            } )
+            .catch( error => {
+                dispatch(createFlatBondError(error))
+            } );
+    }
+}
+
+// Before we store the amount from the view, we need to do wrap some business logic (Process the amount)
+// We dispatch two different actions to store 1. The Amount in the slider, 2. The resulted Fee 
 export const processAmount = (val) =>{
     return (dispatch , getState) => {
         const state = getState();
@@ -42,6 +73,7 @@ export const processAmount = (val) =>{
     }
 }
 
+// Validate the Postcode from gov UK. Easy peasy. 
 export const validatePostcode = (val) =>{
     let postcode = val.replace(/\s/g, "");
     const regex = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
@@ -59,13 +91,7 @@ export const updateFlatBondPeriod = (val) => {
 
 export const applyAndValidatePostcode= (val) => {
     return dispatch => {
-
-        if ( validatePostcode(val)){
-            dispatch(setPostcodeValid(true));
-        }else{
-            dispatch(setPostcodeValid(false));
-        }
-
+       dispatch(setPostcodeValid(validatePostcode(val)));
         dispatch(updatePostcode(val));
     }
 }
@@ -101,6 +127,27 @@ export const setMembershipFee = (amount) => {
 export const resetFlatBond = (error) => {
     return {
         type: actionTypes.RESET_FLATBOND,
+        error: error
+    }
+}
+
+
+export const createFlatBondStart = () => {
+    return {
+        type: actionTypes.CREATE_FLATBOND_REQUEST
+    }
+}
+
+export const createFlatBondSuccess = (status) => {
+    return {
+        type: actionTypes.CREATE_FLATBOND_SUCCESS,
+        status: status
+    }
+}
+
+export const createFlatBondError = (error) => {
+    return {
+        type: actionTypes.CREATE_FLATBOND_ERROR,
         error: error
     }
 }

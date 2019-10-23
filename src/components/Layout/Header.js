@@ -1,5 +1,6 @@
 import React from 'react';
 import flatfairLogo from 'assets/logo.svg';
+import {Link} from 'react-router-dom';
 import {Grid} from 'semantic-ui-react';
 
 const Logo = (props) => {
@@ -11,7 +12,7 @@ export default (props) => {
         <header>
             <Grid padded >
                 <Grid.Column>
-                    <Logo />
+                    <Link to="/"><Logo /></Link>
                 </Grid.Column>
             </Grid>
         </header>

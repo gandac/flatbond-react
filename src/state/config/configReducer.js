@@ -6,7 +6,8 @@ const initialState = {
     loading: true,
     error: false
 }
-//STORE EACH OF THE 3 STATES OF THE REQUEST
+//Store each of the 3 states of the request [ request | success | error ]
+// standard reducer
 const reducer = (state = initialState ,action) => {
     switch(action.type){
         case actionTypes.GET_CONFIG_REQUEST:

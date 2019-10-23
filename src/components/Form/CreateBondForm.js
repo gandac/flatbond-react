@@ -17,7 +17,7 @@ export default (props) => {
             
             <Divider />
 
-            <h3 className="thin">You are entitled with a <strong>{props.membership.type}</strong> membership <br/>
+            <h3 className="thin">You are entitled with a <strong className="highlight-text">{props.membership.type}</strong> membership <br/>
              It will cost you exactly: {CURRENCY}{props.membership.amount} </h3>
             <p>Please send this order to lock it, and assure you will get this price exclusively.</p>
         </div>

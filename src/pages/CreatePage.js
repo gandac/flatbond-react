@@ -7,25 +7,27 @@ import CreateBondForm from 'components/Form/CreateBondForm';
 import * as actions from 'state/flatbond/flatbondActions';
 import {getConfig} from 'state/config/configActions';
 import {sliderLimits} from 'state/constants';
+import GridContainer from 'components/ui/GridContainer';
 import './page.scss';
 
 class CreatePage extends React.Component{
 
-   
+    componentWillReceiveProps(nextProps){
+        if(nextProps.bondIsCreated){
+            this.props.history.push('/details');
+        }
+    }
     componentDidMount(){
         this.resetPageState();
     }
 
-    shouldComponentUpdate(nextProps , nextState){
-        if(this.props.rentPeriod !== nextProps.propsRentPeriod )
-            return true
-    }
-
+    // Will reset each reducer to the initial state. 
     resetPageState = () => {
         this.props.resetForm();
         this.props.getConfig(); 
     }
 
+    // All the Event Handles for the Create Page are authored below
     handeRadioValue = (e, { value }) => {
         this.props.updatePeriod(value);
         this.props.updateRentAmount(sliderLimits[value].start);
@@ -38,15 +40,20 @@ class CreatePage extends React.Component{
         this.props.updatePostcode(val);
     }
 
+    submitData = () => {
+        this.props.createFlatBond();
+    }
+
     render(){
 
         const sliderMin = this.props.rentPeriod ? sliderLimits[this.props.rentPeriod].min : 0;
         const sliderMax = this.props.rentPeriod ? sliderLimits[this.props.rentPeriod].max : 0;
 
         return (
-            this.props.loading ?  <Preloader /> :
+            this.props.loading ?  <GridContainer> <Preloader /> </GridContainer>:
             <Container className="Page">
                 <Grid columns={2}>
+                    
                     <Grid.Row>
                         <Grid.Column >
                             <Segment>
@@ -82,7 +89,7 @@ class CreatePage extends React.Component{
                     <Grid.Row>
                         <Grid.Column className="right aligned">
                             { this.props.isValidPostcode ? 
-                            <Button positive>Send</Button>
+                            <Button positive onClick={this.submitData}>Send</Button>
                             : this.props.rentPeriod ? <p>Please fill in a valid Postcode above</p> : null }
                         </Grid.Column>
                     </Grid.Row>
@@ -102,7 +109,8 @@ const mapStateToProps = state => {
         rentAmount : state.flatBond.rentAmountInPeriod,
         isValidPostcode : state.flatBond.validPostcode,
         postcode : state.flatBond.postcode,
-        loading: state.config.loading,
+        loading: state.config.loading || state.flatBond.loading ,
+        bondIsCreated : state.flatBond.flatBondCreated,
         membership : {
             type: state.config.isFixedFee ? "fixed" : "flexible",
             amount: state.flatBond.finalMembershipFee
@@ -115,6 +123,7 @@ const mapDispatchToProps = dispatch => {
         updateRentAmount   : (val) => dispatch(actions.processAmount(val)),
         updatePostcode     : (val) => dispatch(actions.applyAndValidatePostcode(val)),
         resetForm          : () => dispatch(actions.resetFlatBond()),
+        createFlatBond     : () => dispatch(actions.createFlatBond()),
         getConfig          : () => dispatch(getConfig()),
 
     }
