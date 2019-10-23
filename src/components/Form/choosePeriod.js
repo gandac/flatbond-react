@@ -1,5 +1,5 @@
 import React from 'react';
-import {Radio,Responsive} from 'semantic-ui-react';
+import {Radio} from 'semantic-ui-react';
 import './ChoosePeriod.scss';
 
 export default (props) => {

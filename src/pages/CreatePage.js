@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Segment,Divider,Container,Grid,Button,Responsive} from 'semantic-ui-react';
+import {Segment,Divider,Container,Grid,Button} from 'semantic-ui-react';
 import Preloader from 'components/ui/Preloader';
 import ChooseRentPeriod from 'components/Form/ChoosePeriod';
 import CreateBondForm from 'components/Form/CreateBondForm';
@@ -64,16 +64,16 @@ class CreatePage extends React.Component{
             <Container text className="Page">
                 <Grid>
                     <Grid.Row>
-                        <Responsive as={Grid.Column} >
-                            <Responsive as={Segment}>
+                        <Grid.Column >
+                            <Segment>
                                 <h1 className={"text-center"}>Get your perfect Flat Bond</h1>
                                 <p>Find how much your membership costs, and apply to set your next flat bond</p>
                                 <Divider />
                                 <ChooseRentPeriod
                                 value={rentPeriod}
                                 handleValue={this.handeRadioValue}  />
-                            </Responsive>
-                        </Responsive>
+                            </Segment>
+                        </Grid.Column>
                     </Grid.Row>
                     { rentPeriod ? 
                     <Grid.Row>
