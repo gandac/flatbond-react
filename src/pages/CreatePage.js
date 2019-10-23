@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Segment,Divider,Container,Grid,Button} from 'semantic-ui-react';
+import {Segment,Divider,Container,Grid,Button,Responsive} from 'semantic-ui-react';
 import Preloader from 'components/ui/Preloader';
 import ChooseRentPeriod from 'components/Form/ChoosePeriod';
 import CreateBondForm from 'components/Form/CreateBondForm';
@@ -9,6 +9,8 @@ import {getConfig} from 'state/config/configActions';
 import {sliderLimits} from 'state/constants';
 import GridContainer from 'components/ui/GridContainer';
 import './page.scss';
+
+// The Create [ main ] Page view, implementing two react lifecycle methods
 
 class CreatePage extends React.Component{
 
@@ -46,37 +48,42 @@ class CreatePage extends React.Component{
 
     render(){
 
-        const sliderMin = this.props.rentPeriod ? sliderLimits[this.props.rentPeriod].min : 0;
-        const sliderMax = this.props.rentPeriod ? sliderLimits[this.props.rentPeriod].max : 0;
+        let rentPeriod = this.props.rentPeriod;
+        let sliderProps;
+
+        if(rentPeriod){
+            sliderProps = {
+                sliderMin : sliderLimits[rentPeriod].min,
+                sliderMax : sliderLimits[rentPeriod].max,
+                onChange: this.handlePriceSlide,
+            };
+        }
 
         return (
             this.props.loading ?  <GridContainer> <Preloader /> </GridContainer>:
-            <Container className="Page">
-                <Grid columns={2}>
-                    
+            <Container text className="Page">
+                <Grid>
                     <Grid.Row>
-                        <Grid.Column >
-                            <Segment>
+                        <Responsive as={Grid.Column} >
+                            <Responsive as={Segment}>
                                 <h1 className={"text-center"}>Get your perfect Flat Bond</h1>
                                 <p>Find how much your membership costs, and apply to set your next flat bond</p>
                                 <Divider />
                                 <ChooseRentPeriod
-                                value={this.props.rentPeriod}
+                                value={rentPeriod}
                                 handleValue={this.handeRadioValue}  />
-                            </Segment>
-                        </Grid.Column>
+                            </Responsive>
+                        </Responsive>
                     </Grid.Row>
-                    { this.props.rentPeriod ? 
+                    { rentPeriod ? 
                     <Grid.Row>
                         <Grid.Column>
                             <Segment>
                                 <CreateBondForm 
+                                {...sliderProps}
                                 membership = {this.props.membership}
-                                selectedPeriod={this.props.rentPeriod}
+                                selectedPeriod={rentPeriod}
                                 amount={this.props.rentAmount}
-                                onChange={this.handlePriceSlide}
-                                sliderMin ={sliderMin}
-                                sliderMax ={sliderMax}
                                 postcodeValue = {this.props.postcode}
                                 postcodeChange = {this.postcodeChange}
                                 validPostcode = {this.props.isValidPostcode}
@@ -85,24 +92,20 @@ class CreatePage extends React.Component{
                         </Grid.Column>
                     </Grid.Row>
                     : null }
-                    
                     <Grid.Row>
                         <Grid.Column className="right aligned">
                             { this.props.isValidPostcode ? 
                             <Button positive onClick={this.submitData}>Send</Button>
-                            : this.props.rentPeriod ? <p>Please fill in a valid Postcode above</p> : null }
+                            : rentPeriod ? <p>Please fill in a valid Postcode above</p> : null }
                         </Grid.Column>
                     </Grid.Row>
-             
-                   
                 </Grid>
-               
-
             </Container>
         )
     }
 }
 
+//Connect Redux State to RETRIEVE/STORE info/actions as properties from above [props]
 const mapStateToProps = state => {
     return {
         rentPeriod : state.flatBond.showRentInPeriod,

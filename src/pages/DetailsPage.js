@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Segment,Table,Container,Button} from 'semantic-ui-react';
+import {CURRENCY} from 'state/constants';
 import GridContainer from 'components/ui/GridContainer';
 import Preloader from 'components/ui/Preloader';
 
@@ -16,19 +17,19 @@ class DetailsPage extends React.Component{
                             <Table.Body>
                                 <Table.Row>
                                     <Table.Cell>
-                                       <strong>Location</strong>
+                                       <p><strong>Location</strong></p>
                                     </Table.Cell>
                                     <Table.Cell>
-                                        Postcode: {this.props.postcode}
+                                        <p>Postcode: {this.props.postcode}</p>
                                     </Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
                                     <Table.Cell>
-                                       <strong>Rent Costs</strong>
+                                      <p><strong>Rent Costs</strong></p>
                                     </Table.Cell>
                                     <Table.Cell>
-                                        You have to pay <strong>{this.props.rentPeriod}</strong> a total rent of <strong>{this.props.rentAmount}</strong>
-                                        <small>* VAT Included</small>
+                                        <p>You have to pay <strong>{this.props.rentPeriod}</strong> a total rent of <strong>{CURRENCY}{this.props.rentAmount}</strong></p>
+                                        <p><small>* VAT Included</small></p>
                                     </Table.Cell>
                                 </Table.Row>
                                 <Table.Row>
@@ -36,8 +37,8 @@ class DetailsPage extends React.Component{
                                        <strong>Membership Fee</strong>
                                     </Table.Cell>
                                     <Table.Cell>
-                                        You have been granted a {this.props.membershipType} membership, with a total cost of <strong>{this.props.membershipFee}</strong>
-                                        <small>* VAT Included</small>
+                                        <p>You have been granted a {this.props.membershipType} membership, with a total cost of <strong>{CURRENCY}{this.props.membershipFee}</strong></p>
+                                        <p><small>* VAT Included</small></p>
                                     </Table.Cell>
                                 </Table.Row>
                             </Table.Body>

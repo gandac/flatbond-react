@@ -1,11 +1,12 @@
 import React from 'react';
-import {Radio} from 'semantic-ui-react';
+import {Radio,Responsive} from 'semantic-ui-react';
 import './ChoosePeriod.scss';
 
 export default (props) => {
     return(
     <div className={"ChoosePeriod"}>
-        <h3>How do you calcualte your rent?</h3>
+        <h3>How do you pay your rent?</h3>
+
             <span className="radioButtonWrapper">
                 <Radio
                     label='Weekly'
