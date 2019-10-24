@@ -4,14 +4,6 @@ import PropTypes from 'prop-types'
 import {Grid} from 'semantic-ui-react';
 import {CURRENCY} from 'state/constants';
 
-// eslint-disable-next-line 
-Slider.propTypes = {
-    sliderMin: PropTypes.number,
-    sliderMax: PropTypes.number,
-    amount: PropTypes.number,
-    onChange: PropTypes.func
-}
-
 const Slider = (props) => (
     <Grid >
         <Grid.Row> 
@@ -29,5 +21,13 @@ const Slider = (props) => (
         </Grid.Row>
     </Grid>
 );
+
+Slider.propTypes = {
+    sliderMin: PropTypes.number,
+    sliderMax: PropTypes.number,
+    amount: PropTypes.number,
+    onChange: PropTypes.func
+}
+
 export default Slider;
     

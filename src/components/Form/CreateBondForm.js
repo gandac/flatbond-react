@@ -5,16 +5,7 @@ import Slider from './Slider';
 import {CURRENCY} from 'state/constants';
 import './CreateBondForm.scss';
 
-// eslint-disable-next-line 
-CreateBondForm.propTypes = {
-    selectedPeriod: PropTypes.string,
-    postcodeChange: PropTypes.func,
-    postcodeValue: PropTypes.string,
-    membership: PropTypes.shape({
-        type: PropTypes.string,
-        amount: PropTypes.number
-    })
-}
+
 
 const CreateBondForm =  (props) => {
     return (
@@ -35,5 +26,14 @@ const CreateBondForm =  (props) => {
         </div>
     )
 }
-
+// eslint-disable-next-line 
+CreateBondForm.propTypes = {
+    selectedPeriod: PropTypes.string,
+    postcodeChange: PropTypes.func,
+    postcodeValue: PropTypes.string,
+    membership: PropTypes.shape({
+        type: PropTypes.string,
+        amount: PropTypes.number
+    })
+}
 export default CreateBondForm;

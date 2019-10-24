@@ -3,13 +3,6 @@ import PropTypes from 'prop-types'
 import {Radio} from 'semantic-ui-react';
 import './ChoosePeriod.scss';
 
-//Props for controlling radio buttons
-// eslint-disable-next-line 
-SelectPeriod.propTypes = {
-    value : PropTypes.string,
-    handleValue: PropTypes.func
-}
-
 const SelectPeriod = (props) => {
     return(
     <div className={"ChoosePeriod"}>
@@ -37,5 +30,11 @@ const SelectPeriod = (props) => {
     </div>
     )
 };
+
+//Props for controlling radio buttons
+SelectPeriod.propTypes = {
+    value : PropTypes.string,
+    handleValue: PropTypes.func
+}
 
 export default SelectPeriod;
