@@ -5,8 +5,6 @@ import Slider from './Slider';
 import {CURRENCY} from 'state/constants';
 import './CreateBondForm.scss';
 
-
-
 const CreateBondForm =  (props) => {
     return (
         <div className={"CreateBondForm"}>
@@ -26,7 +24,7 @@ const CreateBondForm =  (props) => {
         </div>
     )
 }
-// eslint-disable-next-line 
+
 CreateBondForm.propTypes = {
     selectedPeriod: PropTypes.string,
     postcodeChange: PropTypes.func,

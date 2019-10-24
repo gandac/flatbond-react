@@ -7,7 +7,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.css';
 
-// App Wrapper and igniter. Here we render the app into the browser's DOM.
 const app = (
     <Provider store={store}>
         <BrowserRouter>
