@@ -1,6 +1,6 @@
 .CreateBondForm{
-    .maxLabel , .minLabel{
-        // display:none
+    .sliderWrapper{
+        margin-top:3em;
     }
     .input-range__slider {
         appearance: none;
@@ -51,8 +51,33 @@
       
       .input-range__label--value {
         position: absolute;
-        top: -1.8rem; }
-      
+        top: -3.5rem;
+        display: block;
+        .input-range__label-container{
+            display: inline-block;
+            padding: 0.5em;
+            text-align: center;
+            box-sizing: border-box;
+            border-radius: 10px;
+            background: #6a88ff;
+            color: #fff;
+            font-size: 1.2em;
+            transition: font-size .3s ease;
+            
+            &:after{
+                content:"";
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 5px 5px 0 5px;
+                border-color: #6a88ff transparent transparent transparent;
+                position: absolute;
+                bottom:-5px;
+                left:0;right:0;
+                margin: auto;
+            }
+        }
+    }
       .input-range__label-container {
         left: -50%;
         position: relative; }

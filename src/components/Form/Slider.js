@@ -5,19 +5,17 @@ import {Grid} from 'semantic-ui-react';
 import {CURRENCY} from 'state/constants';
 
 const Slider = (props) => (
-    <Grid >
+    <Grid className="sliderWrapper">
         <Grid.Row> 
-            <Grid.Column width={13}>
+            <Grid.Column>
             <InputRange
             minValue={props.sliderMin}
             maxValue={props.sliderMax}
             value={props.amount}
             onChange={value => props.onChange(value)}
+            formatLabel={val => `${CURRENCY}${val}`}
                 />
-            </Grid.Column>  
-            <Grid.Column width={3}>
-                {CURRENCY}{props.amount}
-            </Grid.Column>
+            </Grid.Column> 
         </Grid.Row>
     </Grid>
 );
