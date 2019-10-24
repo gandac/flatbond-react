@@ -1,10 +1,22 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Input,Divider} from 'semantic-ui-react';
 import Slider from './Slider';
 import {CURRENCY} from 'state/constants';
 import './CreateBondForm.scss';
 
-export default (props) => {
+// eslint-disable-next-line 
+CreateBondForm.propTypes = {
+    selectedPeriod: PropTypes.string,
+    postcodeChange: PropTypes.func,
+    postcodeValue: PropTypes.string,
+    membership: PropTypes.shape({
+        type: PropTypes.string,
+        amount: PropTypes.number
+    })
+}
+
+const CreateBondForm =  (props) => {
     return (
         <div className={"CreateBondForm"}>
             <h1>Target the ideal home</h1>
@@ -23,3 +35,5 @@ export default (props) => {
         </div>
     )
 }
+
+export default CreateBondForm;

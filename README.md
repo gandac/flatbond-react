@@ -4,7 +4,7 @@ I have build this project for a challenge in creating a minimal ui that is doing
 
 In the UI the user can pick his desired rent amount and following some logic, he gets a price offer.
 
-You can see the demo of the project here [http://flatbond-5a576.web.app](http://flatbond-5a576.web.app) 
+You can see the demo here [http://flatbond-5a576.web.app](http://flatbond-5a576.web.app) 
 
 This javascript project uses React framework for providing the view skeleton,Redux for storing data, Webpack for building / creating hot dev server
 

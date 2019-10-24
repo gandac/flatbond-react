@@ -3,7 +3,7 @@ import './Preloader.scss';
 
 const Preloader = () => (
   <div className="Preloader">
-    <img className="loader__image" src="/images/rings.svg" />
+    <img className="loader__image" src="/images/rings.svg" alt="Loading..." />
   </div>
 );
 

@@ -29,8 +29,8 @@ export const calculateMembershipFee = (amount , state) => {
         flexibleMembershipFee = CONST.MIN_MEMBERSHIP_FEE_GBP
     }
 
-    //Lastly Apply VAT 20% and return the amount
-    return CONST.applyVat(flexibleMembershipFee);
+    //Lastly Apply VAT 20% , maximum 2 fractional digits, and return the amount
+    return Number.parseFloat(CONST.applyVat(flexibleMembershipFee)).toFixed(2);
 }
 
 // CreateFlatBond responsible to make the POST API Call , and change the page if it was successfull.
